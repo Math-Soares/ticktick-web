@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color-primary: #6366f1;
+    --color-primary-rgb: 99, 102, 241;
+    --color-primary-dark: #4f46e5;
+    --color-bg: #0f0f0f;
+    --color-bg-secondary: #1a1a1a;
+    --color-bg-tertiary: #252525;
+    --color-text: #ffffff;
+    --color-text-secondary: #a1a1aa;
+    --color-border: #2e2e2e;
+    --color-success: #22c55e;
+    --color-warning: #f59e0b;
+    --color-danger: #ef4444;
+}
+
+/* Light Theme */
+.light-theme {
+    --color-bg: #f5f5f5;
+    --color-bg-secondary: #ffffff;
+    --color-bg-tertiary: #e5e5e5;
+    --color-text: #18181b;
+    --color-text-secondary: #71717a;
+    --color-border: #d4d4d8;
+    --color-primary-rgb: 79, 70, 229;
+}
+
+.light-theme body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--color-bg);
+    /* Subtle radial gradient for depth in absolute dark mode */
+    background-image: radial-gradient(circle at 50% -20%, rgba(var(--color-primary-rgb), 0.08), transparent 40%);
+    background-attachment: fixed;
+    color: var(--color-text);
+    line-height: 1.6;
+    /* Increased line-height globally for rhythm */
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: 'cv05', 'cv08', 'ss01';
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-secondary);
+}
+
+/* Focus styles */
+*:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Utility classes */
+.glass {
+    background: rgba(26, 26, 26, 0.7);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Modern Card with Gradient Border (Border Glow) */
+.modern-card {
+    position: relative;
+    background: var(--color-bg-secondary);
+    border: 1px solid transparent;
+    border-radius: 0.75rem;
+    /* 12px */
+    background-clip: padding-box;
+    /* The background covers the padding area */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* The magic glow border - using pseudo element or just simpler background stacking */
+/* Ideally, to have a gradient border, we use background-origin: border-box with transparent border */
+.modern-card-glow {
+    background:
+        linear-gradient(var(--color-bg-secondary), var(--color-bg-secondary)) padding-box,
+        linear-gradient(to bottom right, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.03)) border-box;
+    border: 1px solid transparent;
+    border-radius: 0.75rem;
+}
+
+.light-theme .modern-card-glow {
+    background:
+        linear-gradient(var(--color-bg-secondary), var(--color-bg-secondary)) padding-box,
+        linear-gradient(to bottom right, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.02)) border-box;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+.animate-pop {
+    animation: pop 0.2s ease-out;
+}
+
+/* Task completion animation */
+.task-complete {
+    text-decoration: line-through;
+    color: var(--color-text-secondary);
+    transition: all 0.3s ease;
+}
+
+/* Priority colors */
+.priority-1 {
+    color: #60a5fa;
+}
+
+.priority-2 {
+    color: #fbbf24;
+}
+
+.priority-3 {
+    color: #f87171;
+}
