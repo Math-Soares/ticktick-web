@@ -97,7 +97,7 @@ function AccountTab({
     user,
     onDeleteAccount
 }: {
-    user: { id: string; email: string } | null;
+    user: { id: string; email: string; name?: string } | null;
     onDeleteAccount: () => void;
 }) {
     return (
@@ -105,9 +105,9 @@ function AccountTab({
             {/* Avatar */}
             <div className="flex flex-col items-center mb-6">
                 <div className="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center text-3xl font-bold text-white mb-3">
-                    {user?.email?.charAt(0).toUpperCase() || 'U'}
+                    {user?.name?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
                 </div>
-                <p className="text-lg font-medium">{user?.email || 'Usuário'}</p>
+                <p className="text-lg font-medium">{user?.name || user?.email || 'Usuário'}</p>
             </div>
 
             {/* Account Info */}
