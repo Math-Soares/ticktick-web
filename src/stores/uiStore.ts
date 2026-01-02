@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { devtools } from 'zustand/middleware'
+import { devtools, persist } from 'zustand/middleware'
 
 interface UIState {
     sidebarOpen: boolean
@@ -20,22 +20,31 @@ interface UIState {
 
 export const useUIStore = create<UIState>()(
     devtools(
-        (set) => ({
-            sidebarOpen: true,
-            quickAddOpen: false,
-            createHabitOpen: false,
-            selectedTaskId: null,
-            theme: 'dark',
+        persist(
+            (set) => ({
+                sidebarOpen: true,
+                quickAddOpen: false,
+                createHabitOpen: false,
+                selectedTaskId: null,
+                theme: 'dark',
 
-            toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
-            setSidebarOpen: (open) => set({ sidebarOpen: open }),
-            toggleQuickAdd: () => set((state) => ({ quickAddOpen: !state.quickAddOpen })),
-            setQuickAddOpen: (open) => set({ quickAddOpen: open }),
-            toggleCreateHabit: () => set((state) => ({ createHabitOpen: !state.createHabitOpen })),
-            setCreateHabitOpen: (open) => set({ createHabitOpen: open }),
-            setSelectedTask: (id) => set({ selectedTaskId: id }),
-            setTheme: (theme) => set({ theme }),
-        }),
+                toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
+                setSidebarOpen: (open) => set({ sidebarOpen: open }),
+                toggleQuickAdd: () => set((state) => ({ quickAddOpen: !state.quickAddOpen })),
+                setQuickAddOpen: (open) => set({ quickAddOpen: open }),
+                toggleCreateHabit: () => set((state) => ({ createHabitOpen: !state.createHabitOpen })),
+                setCreateHabitOpen: (open) => set({ createHabitOpen: open }),
+                setSelectedTask: (id) => set({ selectedTaskId: id }),
+                setTheme: (theme) => set({ theme }),
+            }),
+            {
+                name: 'ui-storage',
+                partialize: (state) => ({
+                    theme: state.theme,
+                    sidebarOpen: state.sidebarOpen,
+                }),
+            }
+        ),
         { name: 'ui-store' }
     )
 )
